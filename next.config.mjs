@@ -13,7 +13,8 @@ const nextConfig = {
     webpackBuildWorker: true,
     parallelServerBuildTraces: true,
     parallelServerCompiles: true,
-  }
+  },
+  postcss: true,
 }
 
 export default nextConfig
