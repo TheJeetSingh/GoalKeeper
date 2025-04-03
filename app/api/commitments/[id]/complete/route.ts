@@ -1,15 +1,15 @@
 import { NextResponse } from 'next/server';
-import { PrismaClient } from '@prisma/client';
 import { headers } from 'next/headers';
-
-const prisma = new PrismaClient();
+import { connectDB } from '@/lib/mongodb';
+import { Commitment } from '@/models/Commitment';
+import { Goal } from '@/models/Goal';
 
 export async function POST(
   request: Request,
   { params }: { params: { id: string } }
 ) {
   try {
-    const headersList = headers();
+    const headersList = await headers();
     const userId = headersList.get('x-user-id');
 
     if (!userId) {
@@ -19,10 +19,10 @@ export async function POST(
       );
     }
 
-    const commitment = await prisma.commitment.findFirst({
-      where: { id: params.id, userId },
-      include: { goal: true },
-    });
+    await connectDB();
+
+    const commitment = await Commitment.findOne({ _id: params.id, userId })
+      .populate('goal');
 
     if (!commitment) {
       return NextResponse.json(
@@ -32,27 +32,18 @@ export async function POST(
     }
 
     // Update commitment status
-    const updatedCommitment = await prisma.commitment.update({
-      where: { id: params.id },
-      data: { completed: true },
-      include: { goal: true },
-    });
+    commitment.completed = true;
+    await commitment.save();
 
     // Update goal progress
-    const allCommitments = await prisma.commitment.findMany({
-      where: { goalId: commitment.goalId },
-    });
-
+    const allCommitments = await Commitment.find({ goalId: commitment.goalId });
     const totalCommitments = allCommitments.length;
-    const completedCommitments = allCommitments.filter((c: { completed: boolean }) => c.completed).length;
+    const completedCommitments = allCommitments.filter(c => c.completed).length;
     const progress = Math.round((completedCommitments / totalCommitments) * 100);
 
-    await prisma.goal.update({
-      where: { id: commitment.goalId },
-      data: { progress },
-    });
+    await Goal.findByIdAndUpdate(commitment.goalId, { progress });
 
-    return NextResponse.json(updatedCommitment);
+    return NextResponse.json(commitment);
   } catch (error) {
     console.error('Complete commitment error:', error);
     return NextResponse.json(

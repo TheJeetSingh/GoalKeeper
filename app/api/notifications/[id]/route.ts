@@ -1,8 +1,7 @@
 import { NextResponse } from 'next/server';
-import { PrismaClient } from '@prisma/client';
 import { headers } from 'next/headers';
-
-const prisma = new PrismaClient();
+import { connectDB } from '@/lib/mongodb';
+import { Notification } from '@/models/Notification';
 
 export async function DELETE(
   request: Request,
@@ -19,9 +18,9 @@ export async function DELETE(
       );
     }
 
-    const notification = await prisma.notification.findFirst({
-      where: { id: params.id, userId },
-    });
+    await connectDB();
+
+    const notification = await Notification.findOne({ _id: params.id, userId });
 
     if (!notification) {
       return NextResponse.json(
@@ -30,9 +29,7 @@ export async function DELETE(
       );
     }
 
-    await prisma.notification.delete({
-      where: { id: params.id },
-    });
+    await Notification.findByIdAndDelete(params.id);
 
     return NextResponse.json({ success: true });
   } catch (error) {
