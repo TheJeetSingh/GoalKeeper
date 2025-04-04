@@ -82,25 +82,27 @@ export function DashboardNav() {
   ]
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+    <header className="sticky top-0 z-50 w-full border-b border-gray-800/20 bg-black/30 backdrop-blur-xl supports-[backdrop-filter]:bg-black/20">
       <div className="container flex h-16 items-center justify-between">
         <div className="flex items-center gap-2 md:gap-4">
           <Sheet open={open} onOpenChange={setOpen}>
             <SheetTrigger asChild>
-              <Button variant="outline" size="icon" className="md:hidden">
+              <Button variant="ghost" size="icon" className="md:hidden hover:bg-white/10">
                 <Menu className="h-5 w-5" />
                 <span className="sr-only">Toggle menu</span>
               </Button>
             </SheetTrigger>
-            <SheetContent side="left" className="w-[240px] sm:w-[280px]">
+            <SheetContent side="left" className="w-[240px] sm:w-[280px] bg-black/95 border-gray-800/30 backdrop-blur-xl">
               <nav className="flex flex-col gap-4 py-4">
                 {routes.map((route) => (
                   <Link
                     key={route.href}
                     href={route.href}
                     onClick={() => setOpen(false)}
-                    className={`flex items-center rounded-md px-3 py-2 text-sm font-medium ${
-                      pathname === route.href ? "bg-primary text-primary-foreground" : "hover:bg-muted"
+                    className={`flex items-center rounded-md px-3 py-2 text-sm font-medium transition-colors ${
+                      pathname === route.href 
+                        ? "bg-gradient-to-r from-blue-600 to-purple-600 text-white shadow-lg shadow-blue-500/20" 
+                        : "hover:bg-white/10"
                     }`}
                   >
                     {route.icon}
@@ -111,16 +113,18 @@ export function DashboardNav() {
             </SheetContent>
           </Sheet>
           <div className="flex items-center gap-2">
-            <Target className="h-6 w-6 text-primary" />
-            <span className="text-xl font-bold">GoalKeeper</span>
+            <Target className="h-6 w-6 text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-600" />
+            <span className="text-xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-600">GoalKeeper</span>
           </div>
           <nav className="hidden md:flex md:gap-2">
             {routes.map((route) => (
               <Link
                 key={route.href}
                 href={route.href}
-                className={`flex items-center rounded-md px-3 py-2 text-sm font-medium ${
-                  pathname === route.href ? "bg-primary text-primary-foreground" : "hover:bg-muted"
+                className={`flex items-center rounded-md px-3 py-2 text-sm font-medium transition-colors ${
+                  pathname === route.href 
+                    ? "bg-gradient-to-r from-blue-600 to-purple-600 text-white shadow-lg shadow-blue-500/20" 
+                    : "hover:bg-white/10"
                 }`}
               >
                 {route.icon}
@@ -133,35 +137,43 @@ export function DashboardNav() {
           <NotificationsPopover />
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <Button variant="ghost" className="flex items-center gap-2">
-                <Avatar className="h-8 w-8">
+              <Button variant="ghost" className="flex items-center gap-2 hover:bg-white/10">
+                <Avatar className="h-8 w-8 ring-2 ring-blue-500/50">
                   <AvatarImage src={user?.avatar || "/placeholder.svg?height=32&width=32"} alt={user?.name || "User"} />
-                  <AvatarFallback>{user?.name ? getInitials(user.name) : "U"}</AvatarFallback>
+                  <AvatarFallback className="bg-gradient-to-r from-blue-600 to-purple-600 text-white">
+                    {user?.name ? getInitials(user.name) : "U"}
+                  </AvatarFallback>
                 </Avatar>
-                <span className="hidden md:inline-flex">{user?.name || "Loading..."}</span>
+                <span className="hidden md:inline-flex bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-600 font-medium">
+                  {user?.name || "Loading..."}
+                </span>
                 <ChevronDown className="h-4 w-4" />
               </Button>
             </DropdownMenuTrigger>
-            <DropdownMenuContent align="end">
-              <DropdownMenuLabel>My Account</DropdownMenuLabel>
-              <DropdownMenuSeparator />
+            <DropdownMenuContent align="end" className="bg-black/95 border-gray-800/30 backdrop-blur-xl">
+              <DropdownMenuLabel className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-600">
+                My Account
+              </DropdownMenuLabel>
+              <DropdownMenuSeparator className="bg-gray-800/30" />
               <DropdownMenuItem asChild>
-                <Link href="/dashboard/profile">
+                <Link href="/dashboard/profile" className="hover:bg-white/10 cursor-pointer">
                   <Avatar className="mr-2 h-4 w-4">
                     <AvatarImage src={user?.avatar || "/placeholder.svg?height=16&width=16"} alt={user?.name || "User"} />
-                    <AvatarFallback>{user?.name ? getInitials(user.name) : "U"}</AvatarFallback>
+                    <AvatarFallback className="bg-gradient-to-r from-blue-600 to-purple-600 text-white">
+                      {user?.name ? getInitials(user.name) : "U"}
+                    </AvatarFallback>
                   </Avatar>
                   Profile
                 </Link>
               </DropdownMenuItem>
               <DropdownMenuItem asChild>
-                <Link href="/dashboard/settings">
+                <Link href="/dashboard/settings" className="hover:bg-white/10 cursor-pointer">
                   <Settings className="mr-2 h-4 w-4" />
                   Settings
                 </Link>
               </DropdownMenuItem>
-              <DropdownMenuSeparator />
-              <DropdownMenuItem onClick={handleLogout}>
+              <DropdownMenuSeparator className="bg-gray-800/30" />
+              <DropdownMenuItem onClick={handleLogout} className="hover:bg-white/10 cursor-pointer">
                 <LogOut className="mr-2 h-4 w-4" />
                 Logout
               </DropdownMenuItem>

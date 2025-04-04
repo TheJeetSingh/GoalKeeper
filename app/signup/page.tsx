@@ -137,23 +137,28 @@ export default function SignupPage() {
   }
 
   return (
-    <div className="container flex h-screen w-screen flex-col items-center justify-center">
+    <div className="min-h-screen bg-gradient-to-b from-black via-gray-900 to-blue-950 text-white">
+      <div className="absolute inset-0 bg-[url('/grid.svg')] bg-center [mask-image:linear-gradient(180deg,white,rgba(255,255,255,0))]" />
+      
       <Link href="/" className="absolute left-4 top-4 md:left-8 md:top-8">
-        <div className="flex items-center gap-2">
-          <Target className="h-6 w-6 text-primary" />
-          <span className="text-lg font-bold">GoalKeeper</span>
+        <div className="relative flex items-center gap-2">
+          <div className="absolute -inset-1 bg-gradient-to-r from-blue-600 to-cyan-500 rounded-full blur-sm" />
+          <Target className="h-6 w-6 relative" />
+          <span className="text-xl font-bold bg-gradient-to-r from-white to-blue-200 bg-clip-text text-transparent">
+            GoalKeeper
+          </span>
         </div>
       </Link>
 
       {/* Alert Dialog for Existing Account */}
       <AlertDialog open={showExistingAccountDialog} onOpenChange={setShowExistingAccountDialog}>
-        <AlertDialogContent>
+        <AlertDialogContent className="border border-white/10 bg-gray-900/90 backdrop-blur-sm text-white">
           <AlertDialogHeader>
-            <AlertDialogTitle className="flex items-center gap-2">
+            <AlertDialogTitle className="flex items-center gap-2 text-white">
               <AlertCircle className="h-5 w-5 text-yellow-500" />
               Account Already Exists
             </AlertDialogTitle>
-            <AlertDialogDescription className="pt-2">
+            <AlertDialogDescription className="pt-2 text-blue-100/70">
               <p className="mb-4">An account with this email address ({formData.email}) already exists.</p>
               <p>Would you like to sign in with this email or use a different one?</p>
             </AlertDialogDescription>
@@ -164,6 +169,7 @@ export default function SignupPage() {
                 setFormData(prev => ({ ...prev, email: '' }))
                 setShowExistingAccountDialog(false)
               }}
+              className="border-white/10 bg-white/5 text-white hover:bg-white/10 hover:text-white"
             >
               Use Different Email
             </AlertDialogCancel>
@@ -171,7 +177,7 @@ export default function SignupPage() {
               onClick={() => {
                 router.push('/login')
               }}
-              className="bg-primary"
+              className="bg-gradient-to-r from-blue-600 to-cyan-500 hover:from-blue-700 hover:to-cyan-600 text-white border-0"
             >
               Sign In
             </AlertDialogAction>
@@ -179,79 +185,93 @@ export default function SignupPage() {
         </AlertDialogContent>
       </AlertDialog>
 
-      <Card className="w-full max-w-md">
-        <CardHeader className="space-y-1">
-          <CardTitle className="text-2xl">Create an account</CardTitle>
-          <CardDescription>Enter your details below to create your account</CardDescription>
-        </CardHeader>
-        <CardContent className="grid gap-4">
-          <form onSubmit={handleSubmit}>
-            <div className="grid gap-4">
-              <div className="grid gap-2">
-                <Label htmlFor="name">Name</Label>
-                <Input
-                  id="name"
-                  name="name"
-                  type="text"
-                  placeholder="Your name"
-                  value={formData.name}
-                  onChange={handleChange}
+      <div className="container relative z-10 flex h-screen w-screen flex-col items-center justify-center">
+        <Card className="w-full max-w-md border border-white/10 bg-gray-900/50 backdrop-blur-sm">
+          <CardHeader className="space-y-1">
+            <CardTitle className="text-2xl bg-gradient-to-r from-white to-blue-200 bg-clip-text text-transparent">
+              Create an account
+            </CardTitle>
+            <CardDescription className="text-blue-100/70">
+              Enter your details below to create your account
+            </CardDescription>
+          </CardHeader>
+          <CardContent className="grid gap-4">
+            <form onSubmit={handleSubmit}>
+              <div className="grid gap-4">
+                <div className="grid gap-2">
+                  <Label htmlFor="name" className="text-white/70">Name</Label>
+                  <Input
+                    id="name"
+                    name="name"
+                    type="text"
+                    placeholder="Your name"
+                    value={formData.name}
+                    onChange={handleChange}
+                    disabled={isLoading}
+                    required
+                    className="border-white/10 bg-white/5 text-white placeholder:text-white/30 focus:border-blue-500/50 focus:ring-blue-500/30"
+                  />
+                </div>
+                <div className="grid gap-2">
+                  <Label htmlFor="email" className="text-white/70">Email</Label>
+                  <Input
+                    id="email"
+                    name="email"
+                    type="email"
+                    placeholder="name@example.com"
+                    value={formData.email}
+                    onChange={handleChange}
+                    disabled={isLoading}
+                    required
+                    className="border-white/10 bg-white/5 text-white placeholder:text-white/30 focus:border-blue-500/50 focus:ring-blue-500/30"
+                  />
+                </div>
+                <div className="grid gap-2">
+                  <Label htmlFor="password" className="text-white/70">Password</Label>
+                  <Input
+                    id="password"
+                    name="password"
+                    type="password"
+                    value={formData.password}
+                    onChange={handleChange}
+                    disabled={isLoading}
+                    required
+                    className="border-white/10 bg-white/5 text-white placeholder:text-white/30 focus:border-blue-500/50 focus:ring-blue-500/30"
+                  />
+                </div>
+                <div className="grid gap-2">
+                  <Label htmlFor="confirmPassword" className="text-white/70">Confirm Password</Label>
+                  <Input
+                    id="confirmPassword"
+                    name="confirmPassword"
+                    type="password"
+                    value={formData.confirmPassword}
+                    onChange={handleChange}
+                    disabled={isLoading}
+                    required
+                    className="border-white/10 bg-white/5 text-white placeholder:text-white/30 focus:border-blue-500/50 focus:ring-blue-500/30"
+                  />
+                </div>
+                <Button 
+                  type="submit" 
                   disabled={isLoading}
-                  required
-                />
+                  className="bg-gradient-to-r from-blue-600 to-cyan-500 hover:from-blue-700 hover:to-cyan-600 text-white border-0 transition-all duration-300"
+                >
+                  {isLoading ? "Creating account..." : "Create account"}
+                </Button>
               </div>
-              <div className="grid gap-2">
-                <Label htmlFor="email">Email</Label>
-                <Input
-                  id="email"
-                  name="email"
-                  type="email"
-                  placeholder="name@example.com"
-                  value={formData.email}
-                  onChange={handleChange}
-                  disabled={isLoading}
-                  required
-                />
-              </div>
-              <div className="grid gap-2">
-                <Label htmlFor="password">Password</Label>
-                <Input
-                  id="password"
-                  name="password"
-                  type="password"
-                  value={formData.password}
-                  onChange={handleChange}
-                  disabled={isLoading}
-                  required
-                />
-              </div>
-              <div className="grid gap-2">
-                <Label htmlFor="confirmPassword">Confirm Password</Label>
-                <Input
-                  id="confirmPassword"
-                  name="confirmPassword"
-                  type="password"
-                  value={formData.confirmPassword}
-                  onChange={handleChange}
-                  disabled={isLoading}
-                  required
-                />
-              </div>
-              <Button type="submit" className="w-full" disabled={isLoading}>
-                {isLoading ? "Creating account..." : "Create account"}
-              </Button>
+            </form>
+          </CardContent>
+          <CardFooter className="flex flex-col">
+            <div className="text-sm text-blue-100/70">
+              Already have an account?{" "}
+              <Link href="/login" className="text-blue-400 hover:text-blue-300 underline-offset-4 hover:underline transition-colors">
+                Sign in
+              </Link>
             </div>
-          </form>
-        </CardContent>
-        <CardFooter className="flex flex-col">
-          <div className="text-sm text-muted-foreground">
-            Already have an account?{" "}
-            <Link href="/login" className="text-primary underline-offset-4 hover:underline">
-              Sign in
-            </Link>
-          </div>
-        </CardFooter>
-      </Card>
+          </CardFooter>
+        </Card>
+      </div>
     </div>
   )
 }

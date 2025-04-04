@@ -36,68 +36,86 @@ export default function DashboardPage() {
   }, [status])
 
   return (
-    <div className="flex flex-col gap-8">
+    <div className="flex flex-col gap-8 p-6">
       <div className="flex flex-col gap-2">
-        <h1 className="text-3xl font-bold tracking-tight">Dashboard</h1>
-        <p className="text-muted-foreground">
+        <h1 className="text-4xl font-bold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-600">
+          Dashboard
+        </h1>
+        <p className="text-gray-400">
           Welcome back{user?.name ? `, ${user.name}` : ''}! Here's an overview of your goals and commitments.
         </p>
       </div>
 
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
-        <Card>
+        <Card className="bg-black/40 border-gray-800/30 backdrop-blur-xl hover:bg-black/50 transition-colors">
           <CardHeader className="flex flex-row items-center justify-between pb-2">
-            <CardTitle className="text-sm font-medium">Active Goals</CardTitle>
-            <Target className="h-4 w-4 text-muted-foreground" />
+            <CardTitle className="text-sm font-medium text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-600">
+              Active Goals
+            </CardTitle>
+            <Target className="h-4 w-4 text-blue-400" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">7</div>
-            <p className="text-xs text-muted-foreground">+2 from last month</p>
+            <div className="text-2xl font-bold text-white">7</div>
+            <p className="text-xs text-gray-400">+2 from last month</p>
           </CardContent>
         </Card>
-        <Card>
+        <Card className="bg-black/40 border-gray-800/30 backdrop-blur-xl hover:bg-black/50 transition-colors">
           <CardHeader className="flex flex-row items-center justify-between pb-2">
-            <CardTitle className="text-sm font-medium">Commitments</CardTitle>
-            <CheckCircle2 className="h-4 w-4 text-muted-foreground" />
+            <CardTitle className="text-sm font-medium text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-600">
+              Commitments
+            </CardTitle>
+            <CheckCircle2 className="h-4 w-4 text-blue-400" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">23</div>
-            <p className="text-xs text-muted-foreground">12 completed this week</p>
+            <div className="text-2xl font-bold text-white">23</div>
+            <p className="text-xs text-gray-400">12 completed this week</p>
           </CardContent>
         </Card>
-        <Card>
+        <Card className="bg-black/40 border-gray-800/30 backdrop-blur-xl hover:bg-black/50 transition-colors">
           <CardHeader className="flex flex-row items-center justify-between pb-2">
-            <CardTitle className="text-sm font-medium">Upcoming</CardTitle>
-            <Clock className="h-4 w-4 text-muted-foreground" />
+            <CardTitle className="text-sm font-medium text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-600">
+              Upcoming
+            </CardTitle>
+            <Clock className="h-4 w-4 text-blue-400" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">5</div>
-            <p className="text-xs text-muted-foreground">Due in the next 24 hours</p>
+            <div className="text-2xl font-bold text-white">5</div>
+            <p className="text-xs text-gray-400">Due in the next 24 hours</p>
           </CardContent>
         </Card>
-        <Card>
+        <Card className="bg-black/40 border-gray-800/30 backdrop-blur-xl hover:bg-black/50 transition-colors">
           <CardHeader className="flex flex-row items-center justify-between pb-2">
-            <CardTitle className="text-sm font-medium">Completion Rate</CardTitle>
-            <TrendingUp className="h-4 w-4 text-muted-foreground" />
+            <CardTitle className="text-sm font-medium text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-600">
+              Completion Rate
+            </CardTitle>
+            <TrendingUp className="h-4 w-4 text-blue-400" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">78%</div>
-            <p className="text-xs text-muted-foreground">+5% from last month</p>
+            <div className="text-2xl font-bold text-white">78%</div>
+            <p className="text-xs text-gray-400">+5% from last month</p>
           </CardContent>
         </Card>
       </div>
 
       <Tabs defaultValue="goals" className="w-full">
-        <TabsList>
-          <TabsTrigger value="goals">Goals</TabsTrigger>
-          <TabsTrigger value="commitments">Commitments</TabsTrigger>
-          <TabsTrigger value="calendar">Calendar</TabsTrigger>
+        <TabsList className="bg-black/40 border border-gray-800/30 backdrop-blur-xl">
+          <TabsTrigger value="goals" className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-blue-600 data-[state=active]:to-purple-600 data-[state=active]:text-white">
+            Goals
+          </TabsTrigger>
+          <TabsTrigger value="commitments" className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-blue-600 data-[state=active]:to-purple-600 data-[state=active]:text-white">
+            Commitments
+          </TabsTrigger>
+          <TabsTrigger value="calendar" className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-blue-600 data-[state=active]:to-purple-600 data-[state=active]:text-white">
+            Calendar
+          </TabsTrigger>
         </TabsList>
         <TabsContent value="goals" className="space-y-4">
           <div className="flex items-center justify-between">
-            <h2 className="text-xl font-semibold">Your Goals</h2>
+            <h2 className="text-xl font-semibold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-600">
+              Your Goals
+            </h2>
             <Link href="/dashboard/goals/new">
-              <Button size="sm">
+              <Button size="sm" className="bg-gradient-to-r from-blue-600 to-purple-600 text-white hover:from-blue-700 hover:to-purple-700">
                 <Plus className="mr-2 h-4 w-4" /> Add Goal
               </Button>
             </Link>
@@ -135,26 +153,31 @@ export default function DashboardPage() {
                 dueDate: "Mar 1, 2024",
               },
             ].map((goal, i) => (
-              <Card key={i}>
+              <Card key={i} className="bg-black/40 border-gray-800/30 backdrop-blur-xl hover:bg-black/50 transition-colors">
                 <CardHeader className="pb-2">
                   <div className="flex items-center justify-between">
-                    <CardTitle>{goal.title}</CardTitle>
-                    <span className="rounded-full bg-primary/10 px-2 py-1 text-xs font-medium text-primary">
+                    <CardTitle className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-600">
+                      {goal.title}
+                    </CardTitle>
+                    <span className="rounded-full bg-gradient-to-r from-blue-600/20 to-purple-600/20 px-2 py-1 text-xs font-medium text-blue-400">
                       {goal.category}
                     </span>
                   </div>
-                  <CardDescription>Due: {goal.dueDate}</CardDescription>
+                  <CardDescription className="text-gray-400">Due: {goal.dueDate}</CardDescription>
                 </CardHeader>
                 <CardContent className="pb-2">
                   <div className="flex items-center justify-between pb-2">
-                    <span className="text-sm font-medium">Progress</span>
-                    <span className="text-sm font-medium">{goal.progress}%</span>
+                    <span className="text-sm font-medium text-gray-400">Progress</span>
+                    <span className="text-sm font-medium text-gray-400">{goal.progress}%</span>
                   </div>
-                  <Progress value={goal.progress} className="h-2" />
+                  <Progress 
+                    value={goal.progress} 
+                    className="h-2 [&>div]:bg-gradient-to-r [&>div]:from-blue-600 [&>div]:to-purple-600 bg-gray-800" 
+                  />
                 </CardContent>
                 <CardFooter>
                   <Link href={`/dashboard/goals/${i}`} className="w-full">
-                    <Button variant="outline" className="w-full">
+                    <Button variant="outline" className="w-full border-gray-800/30 hover:bg-white/10 text-gray-400 hover:text-white">
                       View Details
                     </Button>
                   </Link>
@@ -165,17 +188,21 @@ export default function DashboardPage() {
         </TabsContent>
         <TabsContent value="commitments" className="space-y-4">
           <div className="flex items-center justify-between">
-            <h2 className="text-xl font-semibold">Your Commitments</h2>
+            <h2 className="text-xl font-semibold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-600">
+              Your Commitments
+            </h2>
             <Link href="/dashboard/commitments/new">
-              <Button size="sm">
+              <Button size="sm" className="bg-gradient-to-r from-blue-600 to-purple-600 text-white hover:from-blue-700 hover:to-purple-700">
                 <Plus className="mr-2 h-4 w-4" /> Add Commitment
               </Button>
             </Link>
           </div>
-          <Card>
+          <Card className="bg-black/40 border-gray-800/30 backdrop-blur-xl">
             <CardHeader>
-              <CardTitle>Today&apos;s Commitments</CardTitle>
-              <CardDescription>Your scheduled commitments for today</CardDescription>
+              <CardTitle className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-600">
+                Today's Commitments
+              </CardTitle>
+              <CardDescription className="text-gray-400">Your scheduled commitments for today</CardDescription>
             </CardHeader>
             <CardContent>
               <div className="space-y-4">
@@ -205,20 +232,22 @@ export default function DashboardPage() {
                     goal: "Read 20 books",
                   },
                 ].map((commitment, i) => (
-                  <div key={i} className="flex items-center justify-between rounded-lg border p-4">
+                  <div key={i} className="flex items-center justify-between rounded-lg border border-gray-800/30 bg-black/40 backdrop-blur-xl p-4 hover:bg-black/50 transition-colors">
                     <div className="flex items-center space-x-4">
                       <div
                         className={`flex h-8 w-8 items-center justify-center rounded-full ${
-                          commitment.completed ? "bg-primary/20 text-primary" : "bg-muted text-muted-foreground"
+                          commitment.completed 
+                            ? "bg-gradient-to-r from-blue-600/20 to-purple-600/20 text-blue-400" 
+                            : "bg-gray-800/50 text-gray-400"
                         }`}
                       >
                         <CheckCircle2 className="h-5 w-5" />
                       </div>
                       <div>
-                        <p className={`font-medium ${commitment.completed ? "line-through opacity-70" : ""}`}>
+                        <p className={`font-medium text-white ${commitment.completed ? "line-through opacity-70" : ""}`}>
                           {commitment.title}
                         </p>
-                        <div className="flex items-center text-sm text-muted-foreground">
+                        <div className="flex items-center text-sm text-gray-400">
                           <Clock className="mr-1 h-3 w-3" />
                           {commitment.time}
                           <span className="mx-1">•</span>
@@ -226,7 +255,14 @@ export default function DashboardPage() {
                         </div>
                       </div>
                     </div>
-                    <Button variant="ghost" size="sm">
+                    <Button 
+                      variant="ghost" 
+                      size="sm" 
+                      className={commitment.completed 
+                        ? "text-gray-400 hover:text-white hover:bg-white/10" 
+                        : "bg-gradient-to-r from-blue-600 to-purple-600 text-white hover:from-blue-700 hover:to-purple-700"
+                      }
+                    >
                       {commitment.completed ? "Completed" : "Mark Complete"}
                     </Button>
                   </div>
@@ -237,17 +273,21 @@ export default function DashboardPage() {
         </TabsContent>
         <TabsContent value="calendar" className="space-y-4">
           <div className="flex items-center justify-between">
-            <h2 className="text-xl font-semibold">Calendar</h2>
+            <h2 className="text-xl font-semibold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-600">
+              Calendar
+            </h2>
             <Link href="/dashboard/calendar">
-              <Button size="sm">
+              <Button size="sm" className="bg-gradient-to-r from-blue-600 to-purple-600 text-white hover:from-blue-700 hover:to-purple-700">
                 <CalendarDays className="mr-2 h-4 w-4" /> Full Calendar
               </Button>
             </Link>
           </div>
-          <Card>
+          <Card className="bg-black/40 border-gray-800/30 backdrop-blur-xl">
             <CardHeader>
-              <CardTitle>Upcoming Schedule</CardTitle>
-              <CardDescription>Your commitments for the next 7 days</CardDescription>
+              <CardTitle className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-600">
+                Upcoming Schedule
+              </CardTitle>
+              <CardDescription className="text-gray-400">Your commitments for the next 7 days</CardDescription>
             </CardHeader>
             <CardContent>
               <div className="space-y-4">

@@ -133,68 +133,90 @@ function LoginForm() {
   }
 
   return (
-    <div className="container flex h-screen w-screen flex-col items-center justify-center">
+    <div className="min-h-screen bg-gradient-to-b from-black via-gray-900 to-blue-950 text-white">
+      <div className="absolute inset-0 bg-[url('/grid.svg')] bg-center [mask-image:linear-gradient(180deg,white,rgba(255,255,255,0))]" />
+      
       <Link href="/" className="absolute left-4 top-4 md:left-8 md:top-8">
-        <div className="flex items-center gap-2">
-          <Target className="h-6 w-6 text-primary" />
-          <span className="text-lg font-bold">GoalKeeper</span>
+        <div className="relative flex items-center gap-2">
+          <div className="absolute -inset-1 bg-gradient-to-r from-blue-600 to-cyan-500 rounded-full blur-sm" />
+          <Target className="h-6 w-6 relative" />
+          <span className="text-xl font-bold bg-gradient-to-r from-white to-blue-200 bg-clip-text text-transparent">
+            GoalKeeper
+          </span>
         </div>
       </Link>
-      <Card className="w-full max-w-md">
-        <CardHeader className="space-y-1">
-          <CardTitle className="text-2xl">Welcome back</CardTitle>
-          <CardDescription>Enter your details to sign in to your account</CardDescription>
-        </CardHeader>
-        <CardContent className="grid gap-4">
-          <form onSubmit={handleSubmit}>
-            <div className="grid gap-4">
-              <div className="grid gap-2">
-                <Label htmlFor="email">Email</Label>
-                <Input
-                  id="email"
-                  name="email"
-                  type="email"
-                  placeholder="name@example.com"
-                  value={formData.email}
-                  onChange={handleChange}
+
+      <div className="container relative z-10 flex h-screen w-screen flex-col items-center justify-center">
+        <Card className="w-full max-w-md border border-white/10 bg-gray-900/50 backdrop-blur-sm">
+          <CardHeader className="space-y-1">
+            <CardTitle className="text-2xl bg-gradient-to-r from-white to-blue-200 bg-clip-text text-transparent">
+              Welcome back
+            </CardTitle>
+            <CardDescription className="text-blue-100/70">
+              Enter your details to sign in to your account
+            </CardDescription>
+          </CardHeader>
+          <CardContent className="grid gap-4">
+            <form onSubmit={handleSubmit}>
+              <div className="grid gap-4">
+                <div className="grid gap-2">
+                  <Label htmlFor="email" className="text-white/70">Email</Label>
+                  <Input
+                    id="email"
+                    name="email"
+                    type="email"
+                    placeholder="name@example.com"
+                    value={formData.email}
+                    onChange={handleChange}
+                    disabled={isLoading}
+                    required
+                    className="border-white/10 bg-white/5 text-white placeholder:text-white/30 focus:border-blue-500/50 focus:ring-blue-500/30"
+                  />
+                </div>
+                <div className="grid gap-2">
+                  <Label htmlFor="password" className="text-white/70">Password</Label>
+                  <Input
+                    id="password"
+                    name="password"
+                    type="password"
+                    value={formData.password}
+                    onChange={handleChange}
+                    disabled={isLoading}
+                    required
+                    className="border-white/10 bg-white/5 text-white placeholder:text-white/30 focus:border-blue-500/50 focus:ring-blue-500/30"
+                  />
+                </div>
+                <Button 
+                  type="submit" 
                   disabled={isLoading}
-                  required
-                />
+                  className="bg-gradient-to-r from-blue-600 to-cyan-500 hover:from-blue-700 hover:to-cyan-600 text-white border-0 transition-all duration-300"
+                >
+                  {isLoading ? "Signing in..." : "Sign in"}
+                </Button>
               </div>
-              <div className="grid gap-2">
-                <Label htmlFor="password">Password</Label>
-                <Input
-                  id="password"
-                  name="password"
-                  type="password"
-                  value={formData.password}
-                  onChange={handleChange}
-                  disabled={isLoading}
-                  required
-                />
-              </div>
-              <Button type="submit" className="w-full" disabled={isLoading}>
-                {isLoading ? "Signing in..." : "Sign in"}
-              </Button>
+            </form>
+          </CardContent>
+          <CardFooter className="flex flex-col">
+            <div className="text-sm text-blue-100/70">
+              Don't have an account?{" "}
+              <Link href="/signup" className="text-blue-400 hover:text-blue-300 underline-offset-4 hover:underline transition-colors">
+                Sign up
+              </Link>
             </div>
-          </form>
-        </CardContent>
-        <CardFooter className="flex flex-col">
-          <div className="text-sm text-muted-foreground">
-            Don't have an account?{" "}
-            <Link href="/signup" className="text-primary underline-offset-4 hover:underline">
-              Sign up
-            </Link>
-          </div>
-        </CardFooter>
-      </Card>
+          </CardFooter>
+        </Card>
+      </div>
     </div>
   )
 }
 
 export default function LoginPage() {
   return (
-    <Suspense fallback={<div>Loading...</div>}>
+    <Suspense fallback={
+      <div className="min-h-screen bg-gradient-to-b from-black via-gray-900 to-blue-950 text-white flex items-center justify-center">
+        Loading...
+      </div>
+    }>
       <LoginForm />
     </Suspense>
   )
