@@ -1,4 +1,5 @@
 import Link from "next/link"
+import Image from "next/image"
 import { Button } from "@/components/ui/button"
 import { ArrowRight, CheckCircle, Clock, Target, Users } from "lucide-react"
 
@@ -8,7 +9,13 @@ export default function Home() {
       <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
         <div className="container flex h-16 items-center justify-between">
           <div className="flex items-center gap-2">
-            <Target className="h-6 w-6 text-primary" />
+            <Image 
+              src="/placeholder-logo.svg" 
+              alt="GoalKeeper Logo" 
+              width={24} 
+              height={24}
+              className="text-primary"
+            />
             <span className="text-xl font-bold">GoalKeeper</span>
           </div>
           <div className="flex items-center gap-4">
