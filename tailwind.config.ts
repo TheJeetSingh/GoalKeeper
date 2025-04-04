@@ -9,6 +9,7 @@ const config = {
     "./src/**/*.{ts,tsx,js,jsx,mdx}",
     "./*.{ts,tsx,js,jsx,mdx}",
   ],
+  prefix: "",
   theme: {
     container: {
       center: true,
